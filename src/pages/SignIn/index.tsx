@@ -3,6 +3,8 @@ import React, { useCallback, useRef } from 'react';
 
 import * as Yup from 'yup';
 
+import { Link } from 'react-router-dom';
+
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 import { Form } from '@unform/web';
@@ -11,7 +13,9 @@ import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationerrors';
 
-import { Container, Content, Background } from './styles';
+import {
+  Container, Content, AnimationContainer, Background,
+} from './styles';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -54,6 +58,8 @@ const SignIn: React.FC = () => {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);
+
+        return;
       }
 
       addToast({
@@ -67,23 +73,25 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="GoBarber" />
+        <AnimationContainer>
+          <img src={logoImg} alt="GoBarber" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu Login</h1>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça seu Login</h1>
 
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
-          <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
+            <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
 
-          <Button type="submit">Entrar</Button>
+            <Button type="submit">Entrar</Button>
 
-          <a href="forgot">Esqueci minha senha</a>
-        </Form>
+            <a href="forgot">Esqueci minha senha</a>
+          </Form>
 
-        <a href="Login">
-          <FiLogIn />
-          Criar Conta
-        </a>
+          <Link to="/signup">
+            <FiLogIn />
+            Criar Conta
+          </Link>
+        </AnimationContainer>
       </Content>
       <Background />
     </Container>
